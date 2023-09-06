@@ -1,5 +1,5 @@
 //Package
-package com.rangecontainer;
+//package com.rangecontainer;
 
 //Imports
 import java.util.*;
@@ -72,7 +72,7 @@ public class RangeContainer {
 		
 		//Return if int contained in floor or ceiling range
 		if(floor != null && floor.inRange(input)) return false;
-		if(ceiling != null && floor.inRange(input)) return false;
+		if(ceiling != null && ceiling.inRange(input)) return false;
 		
 		//Calculate whether new int can merge with floor or ceiling range (within 1)
 		boolean ceilingMerge = ceiling != null && input + 1 == ceiling.start; 
@@ -147,6 +147,22 @@ public class RangeContainer {
 		
 		//Check to see that the number is present, if not return
 		if(!floorPresent && !ceilingPresent) return false;
+		
+		//Remove range if it is independent
+		boolean independent = (floorPresent && floor.inRange(remove) 
+							  && floor.start == remove && floor.end == remove) ||
+							  (ceilingPresent && ceiling.inRange(remove) 
+							  && ceiling.start == remove && ceiling.end == remove);
+		
+		if(independent) {
+			if(floorPresent && floor.inRange(remove)) {
+				this.ranges.remove(floor);
+				return true;
+			}else if (ceilingPresent && ceiling.inRange(remove)){
+				this.ranges.remove(ceiling);
+				return true;
+			}
+		}
 		
 		
 		if(floorPresent && floor.inRange(remove)) {

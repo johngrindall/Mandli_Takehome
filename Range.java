@@ -1,5 +1,3 @@
-package com.rangecontainer;
-
 /**
  * Simple class that defines a range via end and start point.
  * Implements the comparable class for easy comparison of ranges.
